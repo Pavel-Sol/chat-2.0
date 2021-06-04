@@ -7,9 +7,16 @@ const io = socketio(server);
 io.on('connection', (socket) => {
   console.log(`connected user ${socket.id}`);
 
+  let user = null;
+
   socket.on('join', ({ name, room }) => {
-    console.log(`name ${name} , room ${room}`);
+    user = { id: socket.id, name, room };
+
     socket.join(room);
+  });
+
+  socket.on('sendMessage', ({ name, message }) => {
+    io.sockets.in(user.room).emit('AddNewMessage', { name, message });
   });
 });
 

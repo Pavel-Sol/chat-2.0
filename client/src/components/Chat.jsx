@@ -8,7 +8,7 @@ let socket;
 
 
 const Chat = ({location}) => {
-   // const [messages, setMessages] = useState([]);
+   const [messages, setMessages] = useState([]);
    const [message, setMessage] = useState('');
    const [name, setName] = useState('');
    const [room, setRoom] = useState('');
@@ -20,19 +20,32 @@ const Chat = ({location}) => {
        transports: ['websocket', 'polling', 'flashsocket'],
          });
 
-      // setRoom(room);
-      // setName(name);
+      setRoom(room);
+      setName(name);
 
       socket.emit('join', { name, room });
    }, [location.search, ENDPOINT])
 
+   useEffect(() => {
+      socket.on('AddNewMessage', (obj) => {
+        setMessages([...messages, obj]);
+      });
+    });
+
    const sendMessage = () => {
-      console.log(message)
+      socket.emit('sendMessage', {message, name})
       setMessage('')
    }
    return (
       <div>
-         <div className="chat__messages"></div>
+         <div className="chat__messages">
+         {messages &&
+          messages.map((item) => (
+            <li className={item.name === name ? 'my-msg' : null}>
+              {item.name === name ? 'Я' : item.name} : {item.message}
+            </li>
+          ))}
+         </div>
          <div className="chat__form">
             <input value={message} type="text" onChange={(e) => setMessage(e.target.value)} />
             <button onClick={sendMessage}>отправить сообщение</button>
