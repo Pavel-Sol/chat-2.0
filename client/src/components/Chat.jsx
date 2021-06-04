@@ -14,6 +14,7 @@ const Chat = ({location}) => {
    const [room, setRoom] = useState('');
 
 
+   // добавление пользователя в комнату
    useEffect(() => {
       const { name, room } = queryString.parse(location.search);
       socket = io(ENDPOINT, {
@@ -26,12 +27,14 @@ const Chat = ({location}) => {
       socket.emit('join', { name, room });
    }, [location.search, ENDPOINT])
 
+   // добавление сообщений в массив message
    useEffect(() => {
       socket.on('AddNewMessage', (obj) => {
         setMessages([...messages, obj]);
       });
     });
 
+    // отправка сообщений
    const sendMessage = () => {
       socket.emit('sendMessage', {message, name})
       setMessage('')
