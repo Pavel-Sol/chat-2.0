@@ -1,0 +1,17 @@
+.contaiter {
+  max-width: 900px;
+  height: 100vh;
+  border-left: 1px solid black;
+  border-right: 1px solid black;
+  margin: 0px auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.chat__messages {
+  width: 400px;
+  height: 400px;
+  border: 1px solid green;
+  margin-bottom: 10px;
+}
