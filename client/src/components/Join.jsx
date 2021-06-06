@@ -6,7 +6,7 @@ const Join = () => {
   const [room, setRoom] = useState('');
 
   return (
-    <div>
+    <div className='join__wrapper'>
       <input
         value={name}
         type="text"
@@ -22,7 +22,7 @@ const Join = () => {
       <Link
         onClick={(e) => (!name || !room ? e.preventDefault() : null)}
         to={`/chat?name=${name}&room=${room}`}>
-        <button type="submit">join</button>
+        <button className='btn join__btn' type="submit">join</button>
       </Link>
     </div>
   );

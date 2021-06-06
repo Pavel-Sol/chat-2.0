@@ -40,18 +40,25 @@ const Chat = ({location}) => {
       setMessage('')
    }
    return (
-      <div>
+      <div className='chat__wrapper'>
          <div className="chat__messages">
          {messages &&
           messages.map((item) => (
-            <li className={item.name === name ? 'my-msg' : null}>
-              {item.name === name ? 'Я' : item.name} : {item.message}
-            </li>
+            <div className={item.name === name ? 'my-msg msg' : 'alien-msg msg'}>
+               {
+                 item.name === name 
+                 ? null
+                 : <div className='msg__name'>{item.name}</div>
+               }
+               <div className={item.name === name ? 'msg__text' : 'msg__text msg__text-alien'}>
+                  {item.message}
+               </div>
+            </div>
           ))}
          </div>
          <div className="chat__form">
             <input value={message} type="text" onChange={(e) => setMessage(e.target.value)} />
-            <button onClick={sendMessage}>отправить сообщение</button>
+            <button className='btn' onClick={sendMessage}>отправить сообщение</button>
          </div>
       </div>
    )
