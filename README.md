@@ -1,4 +1,4 @@
-# chat-1.0
+# chat-2.0
 
 ![preview](https://github.com/Pavel-Sol/chat-2.0/blob/master/preview/preview.png)
 
